@@ -23,7 +23,8 @@ export default class ItemShareable extends PureComponent {
 
   render() {
     const { width } = Dimensions.get("window");
-    const { url } = this.props.item.images.fixed_height_downsampled;
+    // const { url } = this.props.item.images.fixed_height_downsampled;
+    const { url } = this.props.item.images["480w_still"];
 
     return (
       <TouchableOpacity onPress={this.handlePress}>

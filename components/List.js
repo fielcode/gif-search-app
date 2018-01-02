@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { FlatList } from "react-native";
+import React, { PureComponent } from "react";
+import { FlatList, Dimensions } from "react-native";
 
 import PropTypes from "prop-types";
 
 import ItemShareable from "./ItemShareable";
 
-export default class List extends Component {
+export default class List extends PureComponent {
   static propTypes = {
     items: PropTypes.array.isRequired,
     onPressItem: PropTypes.func.isRequired,
@@ -34,6 +34,8 @@ export default class List extends Component {
   };
 
   render() {
+    const { width } = Dimensions.get("window");
+
     return (
       <FlatList
         ref={this.ref}
@@ -43,6 +45,11 @@ export default class List extends Component {
           <ItemShareable item={item} onPress={this.handlePressItem} />
         )}
         keyExtractor={item => item.id}
+        getItemLayout={(data, index) => ({
+          length: width / 3 - 3,
+          offset: (width / 3 - 3) * index,
+          index
+        })}
         onEndReached={this.handleLoadMore}
         onEndReachedThreshold={0.5}
       />

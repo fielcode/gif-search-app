@@ -39,12 +39,17 @@ export default class App extends React.Component {
       const { offset } = this.state;
       const data = await searchGifs(q, offset);
 
-      this.setState({
-        gifItems:
-          offset === 0 ? data.data : [...this.state.gifItems, ...data.data],
-        refreshing: false,
-        loading: false
-      });
+      this.setState(
+        {
+          gifItems:
+            offset === 0 ? data.data : [...this.state.gifItems, ...data.data],
+          refreshing: false,
+          loading: false
+        },
+        () => {
+          console.log(this.state.gifItems.length);
+        }
+      );
     });
   };
 
